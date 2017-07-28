@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1bd-ie-1pf">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1bd-ie-1pf" customClass="FancyView" customModule="SocialNetwork" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logomakr_93Y49A" translatesAutoresizingMaskIntoConstraints="NO" id="1PF-be-TD7">
@@ -65,19 +65,18 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ld8-9d-JUl">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ld8-9d-JUl" customClass="RoundBtn" customModule="SocialNetwork" customModuleProvider="target">
                                 <rect key="frame" x="112.5" y="230" width="150" height="150"/>
-                                <color key="backgroundColor" red="0.23137254901960785" green="0.34901960784313724" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="H9e-OS-aCP"/>
                                     <constraint firstAttribute="height" constant="150" id="gdF-PK-JOD"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="f"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="9HG-he-RMl">
                                 <rect key="frame" x="46" y="420" width="283" height="125"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oVo-gx-Vyo">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oVo-gx-Vyo" customClass="FancyField" customModule="SocialNetwork" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="283" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="t8k-IT-pZD"/>
@@ -86,7 +85,7 @@
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bGh-fT-Twb">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bGh-fT-Twb" customClass="FancyField" customModule="SocialNetwork" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="45" width="283" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="gyd-iQ-8ym"/>
@@ -95,7 +94,7 @@
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYD-PL-4i4">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYD-PL-4i4" customClass="FancyBtn" customModule="SocialNetwork" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="90" width="283" height="35"/>
                                         <color key="backgroundColor" red="0.8666666666666667" green="0.17254901960784313" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -108,11 +107,19 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="f" translatesAutoresizingMaskIntoConstraints="NO" id="ctT-Vf-l6h">
+                                <rect key="frame" x="119" y="236" width="136" height="138"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="138" id="9VN-8z-Vk1"/>
+                                    <constraint firstAttribute="width" constant="136" id="Wuy-1o-FhN"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="9HG-he-RMl" secondAttribute="trailing" constant="30" id="6SZ-qL-NGo"/>
                             <constraint firstItem="1bd-ie-1pf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="A7e-yq-2hO"/>
+                            <constraint firstItem="ctT-Vf-l6h" firstAttribute="centerX" secondItem="Ld8-9d-JUl" secondAttribute="centerX" id="IOA-hH-KpJ"/>
                             <constraint firstItem="9HG-he-RMl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IbJ-KY-7Q9"/>
                             <constraint firstItem="Ld8-9d-JUl" firstAttribute="top" secondItem="6Fw-6g-gdh" secondAttribute="bottom" constant="40" id="Mta-hH-3nO"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Imj-jI-tVP" secondAttribute="bottom" id="NLL-Lv-kaU"/>
@@ -120,6 +127,7 @@
                             <constraint firstItem="1bd-ie-1pf" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="QfK-gv-Gze"/>
                             <constraint firstItem="Ld8-9d-JUl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WQb-Lx-E8T"/>
                             <constraint firstItem="9HG-he-RMl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="30" id="a2t-Dy-FA1"/>
+                            <constraint firstItem="ctT-Vf-l6h" firstAttribute="centerY" secondItem="Ld8-9d-JUl" secondAttribute="centerY" id="gue-sw-EwI"/>
                             <constraint firstItem="6Fw-6g-gdh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="gvO-wK-ryh"/>
                             <constraint firstItem="Imj-jI-tVP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="iNg-Yv-oUv"/>
                             <constraint firstItem="9HG-he-RMl" firstAttribute="top" secondItem="Ld8-9d-JUl" secondAttribute="bottom" constant="40" id="svj-hC-2i9"/>
