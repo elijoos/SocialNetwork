@@ -12,8 +12,8 @@
 		9A5E60C61F2952820058C4F2 /* RoundBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E60C51F2952820058C4F2 /* RoundBtn.swift */; };
 		9A5E60C81F2AEE8D0058C4F2 /* FancyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E60C71F2AEE8D0058C4F2 /* FancyField.swift */; };
 		9A5E60CA1F2AF0820058C4F2 /* FancyBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E60C91F2AF0820058C4F2 /* FancyBtn.swift */; };
+		9A63CB3D1F2D5745004775FF /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63CB3C1F2D5745004775FF /* SignInVC.swift */; };
 		9A8FFA5C1F26A18200C8A822 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8FFA5B1F26A18200C8A822 /* AppDelegate.swift */; };
-		9A8FFA5E1F26A18200C8A822 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8FFA5D1F26A18200C8A822 /* SignInVC.swift */; };
 		9A8FFA611F26A18200C8A822 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A8FFA5F1F26A18200C8A822 /* Main.storyboard */; };
 		9A8FFA631F26A18200C8A822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A8FFA621F26A18200C8A822 /* Assets.xcassets */; };
 		9A8FFA661F26A18200C8A822 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A8FFA641F26A18200C8A822 /* LaunchScreen.storyboard */; };
@@ -29,9 +29,10 @@
 		9A5E60C51F2952820058C4F2 /* RoundBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundBtn.swift; sourceTree = "<group>"; };
 		9A5E60C71F2AEE8D0058C4F2 /* FancyField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyField.swift; sourceTree = "<group>"; };
 		9A5E60C91F2AF0820058C4F2 /* FancyBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyBtn.swift; sourceTree = "<group>"; };
+		9A63CB3C1F2D5745004775FF /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
+		9A6468671F30FEB40097FCB3 /* SocialNetwork.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SocialNetwork.entitlements; sourceTree = "<group>"; };
 		9A8FFA581F26A18100C8A822 /* SocialNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A8FFA5B1F26A18200C8A822 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9A8FFA5D1F26A18200C8A822 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		9A8FFA601F26A18200C8A822 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9A8FFA621F26A18200C8A822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A8FFA651F26A18200C8A822 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -90,6 +91,7 @@
 		9A8FFA5A1F26A18100C8A822 /* SocialNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				9A6468671F30FEB40097FCB3 /* SocialNetwork.entitlements */,
 				9A5E60C21F294ED00058C4F2 /* Util */,
 				9A8FFA741F26AD0300C8A822 /* Model */,
 				9A8FFA731F26ACFE00C8A822 /* View */,
@@ -107,7 +109,7 @@
 		9A8FFA721F26ACF600C8A822 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9A8FFA5D1F26A18200C8A822 /* SignInVC.swift */,
+				9A63CB3C1F2D5745004775FF /* SignInVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -175,6 +177,11 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 56SX2JL49X;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -264,10 +271,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A5E60C81F2AEE8D0058C4F2 /* FancyField.swift in Sources */,
-				9A8FFA5E1F26A18200C8A822 /* SignInVC.swift in Sources */,
 				9A5E60C61F2952820058C4F2 /* RoundBtn.swift in Sources */,
 				9A8FFA5C1F26A18200C8A822 /* AppDelegate.swift in Sources */,
 				9A5E60C11F294E190058C4F2 /* FancyView.swift in Sources */,
+				9A63CB3D1F2D5745004775FF /* SignInVC.swift in Sources */,
 				9A5E60C41F294EE00058C4F2 /* Constants.swift in Sources */,
 				9A5E60CA1F2AF0820058C4F2 /* FancyBtn.swift in Sources */,
 			);
@@ -395,6 +402,7 @@
 			baseConfigurationReference = FDDBBCB64E2AC4650087B36B /* Pods-SocialNetwork.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SocialNetwork/SocialNetwork.entitlements;
 				DEVELOPMENT_TEAM = 56SX2JL49X;
 				INFOPLIST_FILE = SocialNetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
@@ -410,6 +418,7 @@
 			baseConfigurationReference = 5FF1F5B12688AABA56CCDE0F /* Pods-SocialNetwork.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SocialNetwork/SocialNetwork.entitlements;
 				DEVELOPMENT_TEAM = 56SX2JL49X;
 				INFOPLIST_FILE = SocialNetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
