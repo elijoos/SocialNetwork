@@ -13,6 +13,12 @@ import Firebase
 
 class SignInVC: UIViewController {
 
+    @IBOutlet weak var emailField: FancyField!
+    
+    @IBOutlet weak var pwdField: FancyField!
+   
+    @IBOutlet weak var errorField: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +61,43 @@ class SignInVC: UIViewController {
         }
     }
     
+    @IBAction func signInTapped(_ sender: Any) {
+    
+        if let email = emailField.text, let pwd = pwdField.text {
+            //IN OWN APPS PUT NOTIFICATION TO USER
+            Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user, error) in
+                
+                if error == nil {
+                    print("ELI: User email authenticated with firebase")
+                } else {
+                    //this is error handling if user doesn't exist, or incorrect info. 
+                    Auth.auth().createUser(withEmail: email, password: pwd, completion: { (user, error) in
+                        
+                        
+                        if error != nil {
+                            //this is if an error
+                            if pwd.characters.count < 6 {
+                                self.errorField.isHidden = false
+                                
+                            } else {
+                              
+                                
+                                self.errorField.isHidden = false
+                                self.errorField.text = "An error occured in your email"
+                            }
+                            
+                            
+                            
+                            print("ELI: Unable to authenticate with Firebase using email")
+                            
+                        } else {
+                            print("ELI: Succesfully authenticated with Firebase")
+                        }
+                    })
+                }
+            })
+        }
+    }
     
     
     
