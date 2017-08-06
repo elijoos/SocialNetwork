@@ -10,6 +10,8 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
+import SwiftKeychainWrapper
+
 
 class SignInVC: UIViewController {
 
@@ -25,8 +27,19 @@ class SignInVC: UIViewController {
        
    FBSDKSettings.setAppID("SocialNetwork")
 
-
+        
+    }
     
+    override func viewDidAppear(_ animated: Bool) {
+        //this segue isn't necessary right here; it is in that function at bottom but I might as well keep it here because I might need it for the facebook login
+        if let _ = KeychainWrapper.standard.string(forKey: KEY_UID) {
+            //above ^^ checking if key exists
+           performSegue(withIdentifier: "goToFeed", sender: nil)
+            print("ELI: ID found in keychain")
+        }
+         
+
+
     }
 
     @IBAction func facebookBtnTapped(_ sender: AnyObject) {
@@ -34,11 +47,18 @@ class SignInVC: UIViewController {
         let facebookLogin = FBSDKLoginManager()
         
         facebookLogin.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
+            
             if error != nil {
                 print("ELI: Unable to authenticate with Facebook - \(String(describing: error))")
+            
+            
+            
             } else if result?.isCancelled == true {
                 print("ELI: User cancelled Facebook authentication")
-            } else {
+            }
+            
+            
+            else {
                 print("ELI: Successfully authenticated with Facebook")
                 let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
                 self.firebaseAuth(credential)
@@ -57,6 +77,10 @@ class SignInVC: UIViewController {
                 print("ELI: Unable to authenticate with Firebase - \(String(describing: error))")
             } else {
                 print("ELI: Succesfully authenticated with Firebase")
+                
+                if let user = user{
+                    self.completeSignIn(id: user.uid)
+                }
             }
         }
     }
@@ -69,21 +93,36 @@ class SignInVC: UIViewController {
                 
                 if error == nil {
                     print("ELI: User email authenticated with firebase")
+                    if let user = user {
+                        self.completeSignIn(id: user.uid)
+                    }
+                
+                
+                
                 } else {
                     //this is error handling if user doesn't exist, or incorrect info. 
                     Auth.auth().createUser(withEmail: email, password: pwd, completion: { (user, error) in
                         
                         
+                        
+                        
                         if error != nil {
                             //this is if an error
-                            if pwd.characters.count < 6 {
-                                self.errorField.isHidden = false
+                            if pwd.characters.count < 6 && self.emailField.text != nil{
                                 
-                            } else {
+                                self.errorField.text = "Password requires 6 or more characters"
+                            }
+                            if self.emailField.text == nil && self.pwdField.text == tnil {
+                               
+
+                                self.errorField.text = "Enter username and password to login"
+                            }
+                            
+                            else {
                               
+                             
+                        self.errorField.text = "An error occured in your email"
                                 
-                                self.errorField.isHidden = false
-                                self.errorField.text = "An error occured in your email"
                             }
                             
                             
@@ -92,6 +131,10 @@ class SignInVC: UIViewController {
                             
                         } else {
                             print("ELI: Succesfully authenticated with Firebase")
+                            if let user = user {
+                                self.completeSignIn(id: user.uid)
+                            }
+                           
                         }
                     })
                 }
@@ -99,7 +142,14 @@ class SignInVC: UIViewController {
         }
     }
     
-    
+    func completeSignIn(id: String) {
+      let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
+        print("ELI: Data saved to keychain \(keychainResult)")
+        //user.uid is just the id of user
+        //KEY_UID is just so we avoid a typo when we use this string more
+   performSegue(withIdentifier: "goToFeed", sender: nil)
+        
+    }
     
     
 
