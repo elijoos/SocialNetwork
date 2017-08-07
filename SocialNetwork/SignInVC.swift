@@ -112,7 +112,7 @@ class SignInVC: UIViewController {
                                 
                                 self.errorField.text = "Password requires 6 or more characters"
                             }
-                            if self.emailField.text == nil && self.pwdField.text == tnil {
+                            if self.emailField.text == nil && self.pwdField.text == nil {
                                
 
                                 self.errorField.text = "Enter username and password to login"
