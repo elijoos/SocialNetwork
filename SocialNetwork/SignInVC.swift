@@ -50,14 +50,11 @@ class SignInVC: UIViewController {
             
             if error != nil {
                 print("ELI: Unable to authenticate with Facebook - \(String(describing: error))")
-            
-            
-            
+ 
             } else if result?.isCancelled == true {
                 print("ELI: User cancelled Facebook authentication")
             }
-            
-            
+    
             else {
                 print("ELI: Successfully authenticated with Facebook")
                 let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
@@ -79,7 +76,10 @@ class SignInVC: UIViewController {
                 print("ELI: Succesfully authenticated with Firebase")
                 
                 if let user = user{
-                    self.completeSignIn(id: user.uid)
+                    
+                    let userData = ["provider": credential.provider]
+                    
+                    self.completeSignIn(id: user.uid, userData: userData)
                 }
             }
         }
@@ -94,7 +94,8 @@ class SignInVC: UIViewController {
                 if error == nil {
                     print("ELI: User email authenticated with firebase")
                     if let user = user {
-                        self.completeSignIn(id: user.uid)
+                        let userData = ["provider": user.providerID]
+                        self.completeSignIn(id: user.uid, userData: userData)
                     }
                 
                 
@@ -104,35 +105,49 @@ class SignInVC: UIViewController {
                     Auth.auth().createUser(withEmail: email, password: pwd, completion: { (user, error) in
                         
                         
-                        
-                        
                         if error != nil {
                             //this is if an error
-                            if pwd.characters.count < 6 && self.emailField.text != nil{
-                                
-                                self.errorField.text = "Password requires 6 or more characters"
+                            
+                            
+                            guard let error = AuthErrorCode(rawValue: (error?._code)!) else {
+                                return
                             }
-                            if self.emailField.text == nil && self.pwdField.text == nil {
-                               
 
-                                self.errorField.text = "Enter username and password to login"
-                            }
                             
-                            else {
-                              
-                             
-                        self.errorField.text = "An error occured in your email"
+                            func fireErrorHandle(code: AuthErrorCode) {
+                                switch code {
+                                case .invalidCustomToken:
+                                    print("Indicates a validation error with the custom token")
+                                case .customTokenMismatch:
+                                    print("Indicates the service account and the API key belong to different projects")
+                                case .invalidCredential:
+                                    print("Indicates the IDP token or requestUri is invalid")
+                                case .userDisabled:
+                                    print("Indicates the user's account is disabled on the server")
+                                case .wrongPassword:
+                                    print("ELI: Indicates the user attempted sign in with a wrong password")
+                                case .invalidEmail:
+                                    print("ELI: INVALID EMAIL")
+                                case .weakPassword:
+                                    print("ELI: WEAK PASSWORD")
                                 
+                                default:
+                                    print("Indicates an internal error occurred")
+                                }
                             }
-                            
-                            
-                            
-                            print("ELI: Unable to authenticate with Firebase using email")
+                            fireErrorHandle(code: error)
+
                             
                         } else {
                             print("ELI: Succesfully authenticated with Firebase")
                             if let user = user {
-                                self.completeSignIn(id: user.uid)
+                                
+                                let userData = ["provider": user.providerID]
+                                //we are using this user data constant as a way to reference the name and value part of our database called "Provider" and the value is either Firebase, or Facebook.com
+                                
+                                
+                                self.completeSignIn(id: user.uid, userData: userData)
+                            
                             }
                            
                         }
@@ -142,7 +157,8 @@ class SignInVC: UIViewController {
         }
     }
     
-    func completeSignIn(id: String) {
+    func completeSignIn(id: String, userData: Dictionary<String, String>) {
+        DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
       let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
         print("ELI: Data saved to keychain \(keychainResult)")
         //user.uid is just the id of user
