@@ -26,9 +26,8 @@ class SignInVC: UIViewController {
         super.viewDidLoad()
        
    FBSDKSettings.setAppID("SocialNetwork")
-
         
-    }
+            }
     
     override func viewDidAppear(_ animated: Bool) {
         //this segue isn't necessary right here; it is in that function at bottom but I might as well keep it here because I might need it for the facebook login
