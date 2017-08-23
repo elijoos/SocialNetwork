@@ -115,20 +115,17 @@ class SignInVC: UIViewController {
                             
                             func fireErrorHandle(code: AuthErrorCode) {
                                 switch code {
-                                case .invalidCustomToken:
-                                    print("Indicates a validation error with the custom token")
-                                case .customTokenMismatch:
-                                    print("Indicates the service account and the API key belong to different projects")
-                                case .invalidCredential:
-                                    print("Indicates the IDP token or requestUri is invalid")
-                                case .userDisabled:
-                                    print("Indicates the user's account is disabled on the server")
+                                
                                 case .wrongPassword:
                                     print("ELI: Indicates the user attempted sign in with a wrong password")
                                 case .invalidEmail:
                                     print("ELI: INVALID EMAIL")
+                                    self.errorField.isHidden = false
+                                    self.errorField.text = "Invalid Email"
                                 case .weakPassword:
                                     print("ELI: WEAK PASSWORD")
+                                    self.errorField.isHidden = false
+                                    self.errorField.text = "Password Must Contain At Least 6 Characters"
                                 
                                 default:
                                     print("Indicates an internal error occurred")

@@ -114,7 +114,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tBW-r3-iqh">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="error field" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tBW-r3-iqh">
                                 <rect key="frame" x="46" y="553" width="283" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -143,6 +143,7 @@
                     </view>
                     <connections>
                         <outlet property="emailField" destination="oVo-gx-Vyo" id="bUP-7v-Rwa"/>
+                        <outlet property="errorField" destination="tBW-r3-iqh" id="pVE-kB-cKP"/>
                         <outlet property="pwdField" destination="bGh-fT-Twb" id="R4C-0L-Y4d"/>
                         <segue destination="cpo-R3-thI" kind="show" identifier="goToFeed" id="DqV-wF-KQd"/>
                     </connections>
