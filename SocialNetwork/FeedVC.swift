@@ -57,10 +57,21 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let post = posts[indexPath.row]
-        print("ELI: \(post.caption)")
+            let eachPost = posts[indexPath.row]
+        //we grab our posts
         
-        return tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as? PostCell {
+        
+            cell.configureCell(post: eachPost)
+           
+            return cell
+        } else {
+            
+            return PostCell()
+        }
+        
+        
         
     }
     
