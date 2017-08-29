@@ -208,6 +208,9 @@
                                                     <constraint firstAttribute="width" constant="49" id="HRZ-cw-qbe"/>
                                                     <constraint firstAttribute="height" constant="49" id="RHf-8j-2I4"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="94z-21-2LX" appends="YES" id="waO-Ew-tLO"/>
+                                                </connections>
                                             </imageView>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add a caption" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lWL-ZX-L4p" customClass="FancyField" customModule="SocialNetwork" customModuleProvider="target">
                                                 <rect key="frame" x="59" y="12" width="209" height="25"/>
@@ -357,6 +360,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="imageAdd" destination="6ER-LO-Wfo" id="5sR-or-pNE"/>
                         <outlet property="tableView" destination="jhg-Xk-jna" id="X8f-sh-II0"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="goToSignInVC" id="fAT-s0-ulR"/>
                     </connections>
@@ -365,6 +369,11 @@
                 <tapGestureRecognizer id="3lJ-CI-4Ex">
                     <connections>
                         <action selector="signOutTapped:" destination="cpo-R3-thI" id="dSv-vO-N1S"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="94z-21-2LX">
+                    <connections>
+                        <action selector="addImageTapped:" destination="cpo-R3-thI" id="ovW-Wm-Qbg"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

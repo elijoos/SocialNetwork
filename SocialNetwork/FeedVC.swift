@@ -10,10 +10,13 @@ import UIKit
 import Firebase
 import SwiftKeychainWrapper
 
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var imageAdd: CircleView!
+    
+    var imagePicker: UIImagePickerController!
     var posts = [Post]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +24,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
        tableView.delegate = self
        tableView.dataSource = self
     
+       imagePicker = UIImagePickerController()
+        
+        imagePicker.allowsEditing = true
+        //allows the user to edit the photo after taking it, like cropping it on instagram
+       imagePicker.delegate = self
+    
+        
         //this is the observer/listener
         DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
             print(snapshot.value!)
@@ -47,6 +57,26 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     }
 
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            imageAdd.image = image
+        } else {
+            print("ELI: A valid image wasn't selected")
+        }
+        //All this function does is: Once we select an image, dismiss the image Picker...Thats it
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func addImageTapped(_ sender: Any) {
+    
+    present(imagePicker, animated: true, completion: nil)
+    
+        
+    }
+    
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
