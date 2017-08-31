@@ -69,5 +69,7 @@
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Access to photos is required for posting</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Access to camera is required for posting</string>
 </dict>
 </plist>

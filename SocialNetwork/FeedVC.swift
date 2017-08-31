@@ -17,6 +17,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     @IBOutlet weak var imageAdd: CircleView!
     
     var imagePicker: UIImagePickerController!
+    
+    static var imageCache = NSCache<NSString, UIImage>()
+    
     var posts = [Post]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +64,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             imageAdd.image = image
+            
         } else {
             print("ELI: A valid image wasn't selected")
         }
@@ -68,9 +72,29 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
+    
     @IBAction func addImageTapped(_ sender: Any) {
     
-    present(imagePicker, animated: true, completion: nil)
+    //new stuff from youtube below
+        
+    let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true, completion: nil)
+            } else {
+                print("camera not available")
+            }
+    }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }))
+        
+       actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+    present(actionSheet, animated: true, completion: nil)
     
         
     }
@@ -87,15 +111,22 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-            let eachPost = posts[indexPath.row]
+            let post = posts[indexPath.row]
         //we grab our posts
         
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as? PostCell {
         
-            cell.configureCell(post: eachPost)
+            if let img = FeedVC.imageCache.object(forKey: post.imageUrl as NSString) {
+                cell.configureCell(post: post, img: img)
+                return cell
+            } else {
+                cell.configureCell(post: post)
+                return cell
+            }
+            
            
-            return cell
+            
         } else {
             
             return PostCell()
