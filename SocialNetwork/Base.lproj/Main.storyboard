@@ -226,6 +226,9 @@
                                                     <constraint firstAttribute="height" constant="49" id="OIc-Gf-Edh"/>
                                                 </constraints>
                                                 <state key="normal" title="Button" image="add-post"/>
+                                                <connections>
+                                                    <action selector="postBtnTapped:" destination="cpo-R3-thI" eventType="touchUpInside" id="OTh-jq-oaD"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -251,6 +254,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="359"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="gradiant_1" translatesAutoresizingMaskIntoConstraints="NO" id="tSx-WF-6QL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="489"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gL3-Ff-h0Y" customClass="FancyView" customModule="SocialNetwork" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="8" width="343" height="342.5"/>
                                                     <subviews>
@@ -287,7 +294,7 @@
                                                                 </imageView>
                                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OTr-pY-zTp">
                                                                     <rect key="frame" x="0.0" y="246.5" width="327" height="50"/>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" red="0.91458462252475248" green="0.91458462252475248" blue="0.91458462252475248" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="D9c-vC-HX6"/>
                                                                     </constraints>
@@ -309,7 +316,7 @@
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8888" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bD-d2-VKa">
                                                                     <rect key="frame" x="40.5" y="0.0" width="36" height="22"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
-                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.85999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="textColor" red="1" green="0.26274509800000001" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -334,6 +341,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="gL3-Ff-h0Y" secondAttribute="trailing" constant="16" id="qz8-kv-uVh"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="0.89992399423690694" blue="0.90915623114600597" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="caption" destination="OTr-pY-zTp" id="qxj-xu-PrM"/>
                                             <outlet property="likesLbl" destination="5bD-d2-VKa" id="rUT-Ja-T5c"/>
@@ -345,7 +353,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.81176470590000005" green="0.84705882349999995" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="KkR-ij-d95" firstAttribute="top" secondItem="jhg-Xk-jna" secondAttribute="bottom" id="36B-1Q-ZZw"/>
                             <constraint firstAttribute="trailing" secondItem="Lmr-2F-lmD" secondAttribute="trailing" constant="16" id="5zb-Fb-7e6"/>
@@ -360,6 +368,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="captionField" destination="lWL-ZX-L4p" id="1eS-uY-8PM"/>
                         <outlet property="imageAdd" destination="6ER-LO-Wfo" id="5sR-or-pNE"/>
                         <outlet property="tableView" destination="jhg-Xk-jna" id="X8f-sh-II0"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="goToSignInVC" id="fAT-s0-ulR"/>
@@ -386,6 +395,7 @@
         <image name="devslopes-logo" width="150" height="94"/>
         <image name="empty-heart" width="70" height="70"/>
         <image name="f" width="352" height="328"/>
+        <image name="gradiant_1" width="200" height="100"/>
         <image name="placeholder" width="567" height="312"/>
         <image name="profile" width="113" height="155"/>
         <image name="sign-out" width="92" height="65"/>

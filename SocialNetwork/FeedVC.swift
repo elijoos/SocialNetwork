@@ -16,9 +16,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
     @IBOutlet weak var imageAdd: CircleView!
     
+    @IBOutlet weak var captionField: FancyField!
     var imagePicker: UIImagePickerController!
     
     static var imageCache = NSCache<NSString, UIImage>()
+   
+    var imageSelected = false
     
     var posts = [Post]()
     override func viewDidLoad() {
@@ -49,6 +52,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                         let key = snap.key
                         
                         let post = Post(postKey: key, postData: postDict)
+                        
                         self.posts.append(post)
                     }
                 }
@@ -64,6 +68,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             imageAdd.image = image
+            
+            imageSelected = true
             
         } else {
             print("ELI: A valid image wasn't selected")
@@ -116,9 +122,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as? PostCell {
-        
+       
             if let img = FeedVC.imageCache.object(forKey: post.imageUrl as NSString) {
+                //Here we go into our imageCache, find our image which has the location at forKey (the image url) and set that = to img
                 cell.configureCell(post: post, img: img)
+                
+                
                 return cell
             } else {
                 cell.configureCell(post: post)
@@ -136,16 +145,66 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
     }
     
+    @IBAction func postBtnTapped(_ sender: Any) {
+    //Post to firebase
+    
+        guard let caption = captionField.text, caption != "" else {
+            //In here maybe highlight the box to show user they need to enter caption
+            captionField.isHighlighted = true
+            
+            print("ELI: Caption must be entered")
+            return
+        }
+        guard let img = imageAdd.image, imageSelected == true else {
+            print("ELI: An image must be selected")
+            return
+        }
+        
+        if let imgData = UIImageJPEGRepresentation(img, 0.2) {
+        //converting our image into image data, which will be used to be passed up to firebase storage; Doing it as a jpeg and COMPRESSING IT (which will save storage)
+            let imgUid = NSUUID().uuidString
+            //basically a random identifier for each object
+            
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpeg"
+            //just specifies the type
+   
+            
+            DataService.ds.REF_POST_IMAGES.child(imgUid).putData(imgData, metadata: metadata, completion: { (metadata, error) in
+              
+                //the metadata in the completion handler will contain the URL (they call it downloadUrl). We get it as an ABSOLUTESTRING ("the raw string")
+                if error != nil {
+                    print("ELI: Unable to upload image to Firebase storage")
+                } else {
+                    print("ELI: Successfully uploaded image to Firebase storage")
+                    let downloadUrl = metadata?.downloadURL()?.absoluteString
+                    //just string for url
+                    
+                 
+                }
+            })
+        }
+    }
+    
+    
+    
     
     @IBAction func signOutTapped(_ sender: Any) {
     //1. Sign out of firebase in here
     //2. Remove our ID from Keychain
-        let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
-        print("ELI: ID removed from keychain \(keychainResult)")
-        try! Auth.auth().signOut()
-        performSegue(withIdentifier: "goToSignInVC", sender: nil)
         
-   
+        let signOutActionSheet = UIAlertController(title: "Sign Out", message: "Are you sure you want to sign out?", preferredStyle: .actionSheet)
+        
+        signOutActionSheet.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction) in
+            let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
+            print("ELI: ID removed from keychain \(keychainResult)")
+            try! Auth.auth().signOut()
+            self.performSegue(withIdentifier: "goToSignInVC", sender: nil)
+        }))
+        
+        signOutActionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(signOutActionSheet, animated: true, completion: nil)
     }
     
     
