@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import SwiftKeychainWrapper
 
 let DB_BASE = Database.database().reference()
 //this is the reference to the URL OF OUR DATABASE. (we don't specify url because this databaseUrl is in our GoogleService-Info.plist...go look)
@@ -46,9 +47,16 @@ class DataService {
         return _REF_POST_IMAGES
     }
     
+    var REF_USER_CURRENT: DatabaseReference {
+        let uid = KeychainWrapper.standard.string(forKey: KEY_UID)
+        let user = REF_USERS.child(uid!)
+        return user
+        //getting our uid from our KeychainWrapper, makeing reference to users in database, then passing in our uid as a child in our users part of our datbase
+    }
+    
     func createFirebaseDBUser(uid: String, userData: Dictionary<String, String>) {
         REF_USERS.child(uid).updateChildValues(userData)
-        //if a new user, firebase will create it
+        //if a new user, firebase will create it, otherwise it will just add onto the existing user
     }
     
 }

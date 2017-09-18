@@ -29,7 +29,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
        tableView.delegate = self
        tableView.dataSource = self
-    
+        
+       tableView.rowHeight = 448
+        
        imagePicker = UIImagePickerController()
         
         imagePicker.allowsEditing = true
@@ -128,12 +130,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 cell.configureCell(post: post, img: img)
                 
                 
-                return cell
+                
             } else {
                 cell.configureCell(post: post)
-                return cell
+                
             }
-            
+            return cell
            
             
         } else {
@@ -180,14 +182,31 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                     let downloadUrl = metadata?.downloadURL()?.absoluteString
                     //just string for url
                     
-                 
+                 self.postToFirebase(imgUrl: downloadUrl!)
+                
                 }
             })
         }
     }
     
     
-    
+    func postToFirebase(imgUrl: String) {
+        let post: Dictionary<String, AnyObject> = [
+        "caption": captionField.text as AnyObject,
+        "imageUrl": imgUrl as AnyObject,
+        "likes": 0 as AnyObject,
+        ]
+        
+        let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
+        firebasePost.setValue(post)
+        //we could do updateChildValues but we just can use setValue because since this is a brand new post there's not going to be existing data in it
+        tableView.reloadData()
+        
+        self.captionField.text = ""
+        self.imageSelected = false
+        self.imageAdd.image = UIImage(named: "add-image")
+        
+    }
     
     @IBAction func signOutTapped(_ sender: Any) {
     //1. Sign out of firebase in here
